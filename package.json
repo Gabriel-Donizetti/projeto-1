@@ -1,0 +1,25 @@
+{
+  "name": "projeto-1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "rimraf ;/build && tsc",
+    "dev": "nodemon",
+    "start": "npm-run build && node build/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^18.14.6",
+    "dotenv": "^16.0.3",
+    "nodemon": "^2.0.21",
+    "rimraf": "^4.3.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "venom-bot": "^4.3.7"
+  }
+}
