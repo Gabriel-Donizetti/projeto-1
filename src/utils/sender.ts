@@ -9,7 +9,7 @@ class Sender {
 
     async sendText(to: string, body:string){
         try {
-             // TO = 5541999999999."@c.us"
+             // TO = 5541999999999."@c.us" <- flow this
             await this.Client.sendText(to, body)
         } catch (error) {
             console.log(error)
@@ -27,7 +27,7 @@ class Sender {
         const start=(client: Whatsapp)=>{
             this.Client = client
 
-            this.sendText("554188334623@c.us", "teste")
+            this.sendText("554188334623"+"@c.us", "message")
         }
 
         create('sender-wapp-message', qr, status)
