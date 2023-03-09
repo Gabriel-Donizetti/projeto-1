@@ -1,35 +1,29 @@
-import { PrismaClient } from "@prisma/client";
+import companyRepository from '@repository/companyRepository';
+import { CompanyDto } from 'src/interface/company';
 
 export default class CompanyService {
-    
-    prisma: PrismaClient
 
-    constructor () {
-        this.prisma = new PrismaClient()
+  
+  companyRepository: companyRepository;
+  constructor() {
+    this.companyRepository = new companyRepository();
+  }
+  /**'
+   * @param companyRepository
+   * @returns
+   */
+  async create(comapanyDto: CompanyDto) {
+    const company = await this.companyRepository.findCompanyByCnpj(comapanyDto)
+    if(company){
+        throw new Error('This company already exists. Try another.')
     }
 
-    async create(name: string,state: string ,city: string ,segment: string, number: string){
-        const company = await this.prisma.company.create({
-            data:{
-                city,
-                name,
-                number,
-                segment,
-                state
-            }
-        })
-        return company
-    }
+    await this.companyRepository.create(comapanyDto)
+  }
 
-    async findBySegment(segment: string){
-        const segments = await this.prisma.company.findMany({
-            where:{
-                segment
-            }
-        })
-        return segments
-    }
+ 
 
+ 
 
-
+  
 }
