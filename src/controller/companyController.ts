@@ -11,4 +11,15 @@ export default class CompanyControler {
         return res.status(502).json({error: "error"});
     }
   }
+
+  static async findSegment(req: Request, res: Response) {
+    try {
+        const {segment} = req.body
+        const resService = await companyService.findBySegment(segment)
+        return res.status(200).json(resService);
+    } catch (error) {
+        return res.status(502).json({error: "error"});
+    }
+  }
 }
+

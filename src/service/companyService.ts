@@ -1,9 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 
 export default class CompanyService {
-    static create(name: any, state: any, city: any, segment: any, number: any) {
-        throw new Error('Method not implemented.');
-    }
+    
     prisma: PrismaClient
 
     constructor () {
@@ -22,4 +20,16 @@ export default class CompanyService {
         })
         return company
     }
+
+    async findBySegment(segment: string){
+        const segments = await this.prisma.company.findMany({
+            where:{
+                segment
+            }
+        })
+        return segments
+    }
+
+
+
 }
