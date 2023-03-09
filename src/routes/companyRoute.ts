@@ -6,7 +6,7 @@ export const companyRouter: Router = Router();
 
 companyRouter.get('/create-companys', CompanyControler.createCompanys);
 
-companyRouter.get('/segments', CompanyControler.findSegment);
+companyRouter.get('/find-by', CompanyControler.findBy);
 
 
 

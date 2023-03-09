@@ -5,7 +5,7 @@ import CompanyService from 'src/service/companyService';
 const companyService = new CompanyService()
 
 export default class CompanyControler {
-  static async reateCompanys(req: Request, res: Response) {
+  static async createCompanys(req: Request, res: Response) {
     try {
         const {cnpj, name,state ,city ,segment, number} = req.body
 
@@ -18,5 +18,19 @@ export default class CompanyControler {
     } catch (error) {
         return res.status(502).json(error.message);
     }
+  }
+  static async findBy(req: Request, res: Response){
+    try {
+      const {cnpj, name,state ,city ,segment, number} = req.body
+
+      const company: CompanyDto = {
+        cnpj, name,state ,city ,segment, number
+      }
+
+      const companys = await companyService.findBy(company)
+      return res.status(201).json(companys);
+  } catch (error) {
+      return res.status(502).json(error.message);
+  }
   }
 }
