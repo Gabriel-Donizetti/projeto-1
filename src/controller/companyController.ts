@@ -1,25 +1,22 @@
 import { Request, Response } from 'express';
-import companyService from '../service/companyService';
+import { CompanyDto } from 'src/interface/company';
+import CompanyService from 'src/service/companyService';
+
+const companyService = new CompanyService()
 
 export default class CompanyControler {
-  static async createCompanys(req: Request, res: Response) {
+  static async reateCompanys(req: Request, res: Response) {
     try {
-        const {name,state ,city ,segment, number} = req.body
-        const resService = await companyService.create(name,state ,city ,segment, number)
-        return res.status(200).json(resService);
-    } catch (error) {
-        return res.status(502).json({error: "error"});
-    }
-  }
+        const {cnpj, name,state ,city ,segment, number} = req.body
 
-  static async findSegment(req: Request, res: Response) {
-    try {
-        const {segment} = req.body
-        const resService = await companyService.findBySegment(segment)
-        return res.status(200).json(resService);
+        const company: CompanyDto = {
+          cnpj, name,state ,city ,segment, number
+        }
+
+        await companyService.create(company)
+        return res.status(201).json('created');
     } catch (error) {
-        return res.status(502).json({error: "error"});
+        return res.status(502).json(error.message);
     }
   }
 }
-
