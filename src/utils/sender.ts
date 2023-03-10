@@ -1,14 +1,31 @@
+import { type } from "os";
 import{create, Whatsapp, Message, SocketState} from "venom-bot"
 
+export type QRcode = {
+    base64Qr: string
+    asciiQR: string
+    attempts: number
+}
 class Sender {
     private Client!: Whatsapp
+    private connected: boolean
+    private qr: QRcode
+
+    get isConnected () : boolean {
+        return this.connected
+    }
+
+    get qrCode () : QRcode{
+        return this.qr
+    }
 
     constructor (){
-        this.initialize()
+        //this.initialize(instance )
     }
 
     async sendText(to: string, body:string){
         try {
+
              // TO = 5541999999999."@c.us"
             await this.Client.sendText(to, body)
         } catch (error) {
@@ -16,21 +33,25 @@ class Sender {
         }
     }
 
-    private initialize(){
+    async initialize(instance: string, number:string, message: string){
 
-        const qr=(base64Qrimg: string)=>{
-
+        const qr=(base64Qr: string, asciiQR: string, attempts: number)=>{
+            this.qr = { base64Qr, asciiQR, attempts}
         }
         const status=(statusSession: string)=>{
-
+            this.connected = ['isLoged', 'qrReadSucces', 'chatsaAvailable'].includes(statusSession)
         }
         const start=(client: Whatsapp)=>{
             this.Client = client
 
-            this.sendText("554188334623@c.us", "teste")
+            client.onStateChange((state) => {
+                this.connected = state === SocketState.CONNECTED
+            })
+
+            this.sendText(number + "@c.us", message)
         }
 
-        create('sender-wapp-message', qr, status)
+        create(instance, qr, status)
         .then((client)=>start(client))
         .catch((error)=> console.log(error))
     }

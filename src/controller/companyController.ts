@@ -5,7 +5,7 @@ import CompanyService from 'src/service/companyService';
 const companyService = new CompanyService()
 
 export default class CompanyControler {
-  static async reateCompanys(req: Request, res: Response) {
+  static async createCompanys(req: Request, res: Response) {
     try {
         const {cnpj, name,state ,city ,segment, number} = req.body
 
