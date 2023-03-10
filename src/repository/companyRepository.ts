@@ -9,10 +9,10 @@ export default class companyRepository {
         this.prisma = new PrismaClient()
     }
 
-    async findCompanyByCnpj(comapanyDto: CompanyDto) {
+    async findCompanyByCnpj(companyDto: CompanyDto) {
         const company = await this.prisma.company.findUnique({
             where:{
-                cnpj: comapanyDto.cnpj
+                cnpj: companyDto.cnpj
             }
         })
 
@@ -32,4 +32,28 @@ export default class companyRepository {
         })
         return company
     }
+    async findBySegment(companyDto: CompanyDto){
+        const segments = await this.prisma.company.findMany({
+            where:{
+                segment: companyDto.segment
+            },
+            select:{
+                number: true
+            }
+        })
+        return segments
+    }
+    async findByCity(companyDto: CompanyDto){
+        const citys = await this.prisma.company.findMany({
+            where:{
+                city: companyDto.city
+            },
+            select:{
+                number: true
+            }
+        })
+        return citys
+    }
+
+    
 }

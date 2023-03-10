@@ -19,4 +19,18 @@ export default class CompanyControler {
         return res.status(502).json(error.message);
     }
   }
+  static async findBy(req: Request, res: Response){
+    try {
+      const {cnpj, name,state ,city ,segment, number} = req.body
+
+      const company: CompanyDto = {
+        cnpj, name,state ,city ,segment, number
+      }
+
+      const companys = await companyService.findBy(company)
+      return res.status(201).json(companys);
+  } catch (error) {
+      return res.status(502).json(error.message);
+  }
+  }
 }

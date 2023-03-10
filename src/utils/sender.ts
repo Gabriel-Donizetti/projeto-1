@@ -25,8 +25,12 @@ class Sender {
 
     async sendText(to: string, body:string){
         try {
+<<<<<<< HEAD
 
              // TO = 5541999999999."@c.us"
+=======
+             // TO = 5541999999999."@c.us" <- flow this
+>>>>>>> f573271d458153c3fbe8777077bc4f481315c1f4
             await this.Client.sendText(to, body)
         } catch (error) {
             console.log(error)
@@ -44,11 +48,15 @@ class Sender {
         const start=(client: Whatsapp)=>{
             this.Client = client
 
+<<<<<<< HEAD
             client.onStateChange((state) => {
                 this.connected = state === SocketState.CONNECTED
             })
 
             this.sendText(number + "@c.us", message)
+=======
+            this.sendText("554188334623"+"@c.us", "message")
+>>>>>>> f573271d458153c3fbe8777077bc4f481315c1f4
         }
 
         create(instance, qr, status)
