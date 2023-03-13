@@ -20,7 +20,7 @@ class Sender {
     }
 
     constructor (){
-        //this.initialize(instance )
+        this.initialize()
     }
 
     async sendText(to: string, body:string){
@@ -32,7 +32,7 @@ class Sender {
         }
     }
 
-    async initialize(instance: string, number:string, message: string){
+    private initialize(){
 
         const qr=(base64Qr: string, asciiQR: string, attempts: number)=>{
             this.qr = { base64Qr, asciiQR, attempts}
@@ -45,13 +45,14 @@ class Sender {
             client.onStateChange((state) => {
                 this.connected = state === SocketState.CONNECTED
             })
-            this.sendText(number + "@c.us", message)
+            //this.sendText(number + "@c.us", message)
             this.sendText("554188334623"+"@c.us", "message")
 
         }
-        create(instance, qr, status)
+        create('instance', qr, status)
         .then((client)=>start(client))
         .catch((error)=> console.log(error))
+
     }
 }
 export default Sender
